@@ -1,30 +1,30 @@
 package org.hse.example;
 
+/**
+ * Приложение для работы со счастливым
+ */
 public class App {
 
     /**
-     * Основной метод
-     * @param args
+     * Основной метод. Вычисляет количество счастливых билетов
+     * @param args аргументы
      */
     public static void main(String... args) {
-        long count = 0l;
+        long count = 0L;
         for (long i = 0; i < 1000000; i++){
             //Получаем билет
             int[] ticket = getTicket(i);
 
             if(!isMealTicket(ticket)) {
-                continue;
+                continue; // билет не является счастливым, пропускаем дальнейшее
             }
 
             //Если счастливый, увеличиваем счётчик и выводим
             count++;
-            for (int k : ticket) {
-                System.out.print(k);
-            }
-            System.out.println();
+            printTicket(ticket);
 
         }
-        System.out.println("Hello World! " + count);
+        System.out.println("Счастливых билетов " + count);
     }
 
     /**
@@ -55,5 +55,17 @@ public class App {
         int lastSum = ticket[3] + ticket[4] + ticket[5];
 
         return firstSum == lastSum;
+    }
+
+    /**
+     * Выводит билет в консоль
+     *
+     * @param ticket билет
+     */
+    private static void printTicket(int[] ticket) {
+        for (int k : ticket) {
+            System.out.print(k);
+        }
+        System.out.println();
     }
 }

@@ -1,15 +1,12 @@
 package org.hse.example;
 
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Приложение для работы со счастливым
  */
 public class App {
-    /**
-     * Счётчик счастливых билетов
-     */
-    private static long count = 0L;
 
     /**
      * Основной метод. Вычисляет количество счастливых билетов
@@ -17,15 +14,18 @@ public class App {
      * @param args аргументы
      */
     public static void main(String... args) {
+        //Реализуем служеюный Iterable
         TicketsGenerator generator = new TicketsGenerator();
-        generator.forEachRemaining(
-                ticket -> {
-                    if (!ticket.isMealTicket()) {
-                        return;
-                    }
-                    count++;
-                    System.out.println(ticket.toString());
-                });
+        Iterable<Ticket> ticketIterable = () -> generator;
+
+        //А теперь получим результат с помощью собственного Stream!
+        long count =
+                StreamSupport // сервис для низкоуровневой работы со стримами
+                        .stream(ticketIterable.spliterator(), false)
+                        .filter(Ticket::isMealTicket)
+                        .map(Ticket::toString)
+                        .peek(System.out::println)
+                        .count();
 
         System.out.println("Счастливых билетов " + count);
     }

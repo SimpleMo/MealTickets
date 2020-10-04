@@ -5,7 +5,8 @@ import java.util.Iterator;
 /**
  * Генерирует все возможные билеты, реализует {@link java.util.Iterator}
  */
-public class TicketsGenerator implements Iterator<Ticket> {
+public class TicketsGenerator implements Iterator<MealTicket> {
+    //todo реализовать генератор для билетов из 4-х цифр
     private long current = 0;
     private static long MAX_TICKET_NUMBER = 1000000;
 
@@ -21,8 +22,8 @@ public class TicketsGenerator implements Iterator<Ticket> {
      * @return следующий билет
      */
     @Override
-    public Ticket next() {
-        Ticket nextTicket = new Ticket(current);
+    public MealTicket next() {
+        MealTicket nextTicket = new Ticket(current);
         current++;
         return nextTicket;
     }

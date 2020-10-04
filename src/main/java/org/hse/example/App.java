@@ -16,14 +16,14 @@ public class App {
     public static void main(String... args) {
         //Реализуем служеюный Iterable
         TicketsGenerator generator = new TicketsGenerator();
-        Iterable<Ticket> ticketIterable = () -> generator;
+        Iterable<MealTicket> ticketIterable = () -> generator;
 
         //А теперь получим результат с помощью собственного Stream!
         long count =
                 StreamSupport // сервис для низкоуровневой работы со стримами
                         .stream(ticketIterable.spliterator(), false)
-                        .filter(Ticket::isMealTicket)
-                        .map(Ticket::toString)
+                        .filter(MealTicket::isMealTicket)
+                        .map(MealTicket::toString)
                         .peek(System.out::println)
                         .count();
 

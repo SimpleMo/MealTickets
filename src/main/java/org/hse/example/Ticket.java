@@ -1,6 +1,7 @@
 package org.hse.example;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Класс для моделирования билета
@@ -13,6 +14,22 @@ public class Ticket implements MealTicket {
      * @param ticket номер билета в виде целого числа
      */
     public Ticket(long ticket) {
+        fill(ticket);
+    }
+
+    /**
+     * @param ticket номер билета в виде целого числа, возможен null
+     */
+    public Ticket(Long ticket) {
+        Long asLong = Optional.ofNullable(ticket).orElseThrow(ArithmeticException::new);
+        fill(asLong);
+    }
+
+    /**
+     * Разбирает поступивший номер билета на цифрй и сохраняет их в массив
+     * @param ticket номер билета
+     */
+    private void fill(long ticket) {
         this.ticket = new int[]{0, 0, 0, 0, 0, 0};
         int j = 5;
         while (ticket > 0) {

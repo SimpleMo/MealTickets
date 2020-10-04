@@ -1,5 +1,6 @@
 package org.hse.example;
 
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -16,12 +17,13 @@ public class App {
     public static void main(String... args) {
         //Реализуем служеюный Iterable
         TicketsGenerator generator = new TicketsGenerator();
-        Iterable<MealTicket> ticketIterable = () -> generator;
 
         //А теперь получим результат с помощью собственного Stream!
+        //TODO добавить фабрику вместо конструктора
         long count =
-                StreamSupport // сервис для низкоуровневой работы со стримами
-                        .stream(ticketIterable.spliterator(), false)
+                LongStream
+                        .range(0, 1000000)
+                        .mapToObj(Ticket::new)
                         .filter(MealTicket::isMealTicket)
                         .map(MealTicket::toString)
                         .peek(System.out::println)

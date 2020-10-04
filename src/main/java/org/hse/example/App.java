@@ -1,6 +1,7 @@
 package org.hse.example;
 
-import java.util.stream.Stream;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Приложение для работы со счастливым
@@ -9,7 +10,7 @@ public class App {
     /**
      * Счётчик счастливых билетов
      */
-    private static long count = 0L;
+    private static long count = 0; // для грязного хака с лямблами
 
     /**
      * Основной метод. Вычисляет количество счастливых билетов

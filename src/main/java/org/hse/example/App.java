@@ -1,8 +1,5 @@
 package org.hse.example;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 /**
  * Приложение для работы со счастливым
  */
@@ -18,6 +15,8 @@ public class App {
      * @param args аргументы
      */
     public static void main(String... args) {
+        //Реализуем служеюный Iterable
+        //todo подменить генератор на тот, что для билетов из 4-х цифр
         TicketsGenerator generator = new TicketsGenerator();
         generator.forEachRemaining(
                 ticket -> {

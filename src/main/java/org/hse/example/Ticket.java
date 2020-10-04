@@ -5,7 +5,8 @@ import java.util.Arrays;
 /**
  * Класс для моделирования билета
  */
-public class Ticket {
+public class Ticket implements MealTicket {
+    //todo реализовать класс для билета из 4-х цифр. Лучше интерфейс
     private int[] ticket;
 
     /**
@@ -24,6 +25,7 @@ public class Ticket {
     /**
      * @return true, если билет счастливый
      */
+    @Override
     public boolean isMealTicket() {
         int firstSum = ticket[0] + ticket[1] + ticket[2];
         int lastSum = ticket[3] + ticket[4] + ticket[5];

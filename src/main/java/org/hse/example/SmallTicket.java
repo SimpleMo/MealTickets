@@ -12,7 +12,7 @@ public class SmallTicket implements MealTicket {
      */
     public SmallTicket(long ticket) {
         this.ticket = new int[]{0, 0, 0, 0};
-        int j = 5;
+        int j = 3;
         while (ticket > 0) {
             this.ticket[j] = (int) ticket % 10;
             ticket = ticket / 10;

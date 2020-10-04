@@ -1,5 +1,7 @@
 package org.hse.example;
 
+import java.util.Iterator;
+
 /**
  * Приложение для работы со счастливым
  */
@@ -17,7 +19,8 @@ public class App {
     public static void main(String... args) {
         //Реализуем служеюный Iterable
         //todo подменить генератор на тот, что для билетов из 4-х цифр
-        TicketsGenerator generator = new TicketsGenerator();
+        //todo универсальный генератор + фабрика билетов (с Function)
+        Iterator<MealTicket> generator = new SmallTicketGenerator();
         generator.forEachRemaining(
                 ticket -> {
                     if (!ticket.isMealTicket()) {

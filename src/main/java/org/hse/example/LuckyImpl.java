@@ -5,13 +5,13 @@ import java.util.Arrays;
 /**
  * Класс для моделирования билета
  */
-public class Ticket {
+public class LuckyImpl implements Lucky {
     private int[] ticket;
 
     /**
      * @param ticket номер билета в виде целого числа
      */
-    public Ticket(long ticket) {
+    public LuckyImpl(long ticket) {
         this.ticket = new int[]{0, 0, 0, 0, 0, 0};
         int j = 5;
         while (ticket > 0) {
@@ -24,7 +24,7 @@ public class Ticket {
     /**
      * @return true, если билет счастливый
      */
-    public boolean isMealTicket() {
+    public boolean isLucky() {
         int firstSum = ticket[0] + ticket[1] + ticket[2];
         int lastSum = ticket[3] + ticket[4] + ticket[5];
 

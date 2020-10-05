@@ -5,25 +5,35 @@ package org.hse.example;
  */
 public class App {
 
+    private static final int MAX_NUMBER = 1000000;
+
     /**
      * Основной метод. Вычисляет количество счастливых билетов
      * @param args аргументы
      */
     public static void main(String... args) {
         long count = 0L;
-        for (long i = 0; i < 1000000; i++){
+        for (long i = 0; i < MAX_NUMBER; i++) {
             //Получаем билет
-            Ticket ticket = new Ticket(i); // почему не портится i?
+            Lucky luckyCandidate = getCandidate(i);
 
-            if(!ticket.isMealTicket()) {
-                continue; // билет не является счастливым, пропускаем дальнейшее
+            if (luckyCandidate.isLucky()) {
+                //Если счастливый, увеличиваем счётчик и выводим
+                count++;
+                System.out.println(luckyCandidate);
             }
 
-            //Если счастливый, увеличиваем счётчик и выводим
-            count++;
-            System.out.println(ticket.toString());
         }
         System.out.println("Счастливых билетов " + count);
+    }
+
+    /**
+     * Возвращает очередной экземпляр для проверки
+     * @param i номер
+     * @return объект, реализующий {@link Lucky}
+     */
+    private static Lucky getCandidate(long i) {
+        return new LuckyImpl(i);
     }
 
 }

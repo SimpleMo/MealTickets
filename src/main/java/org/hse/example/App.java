@@ -1,5 +1,6 @@
 package org.hse.example;
 
+import java.util.Iterator;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -16,7 +17,7 @@ public class App {
      */
     public static void main(String... args) {
         //Реализуем служеюный Iterable
-        TicketsGenerator generator = new TicketsGenerator();
+        Iterator<MealTicket> generator = new TicketsGenerator();
 
         //А теперь получим результат с помощью собственного Stream!
         //TODO добавить фабрику вместо конструктора

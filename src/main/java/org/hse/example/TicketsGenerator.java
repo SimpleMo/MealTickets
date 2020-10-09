@@ -1,10 +1,13 @@
 package org.hse.example;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Iterator;
 
 /**
  * Генерирует все возможные билеты, реализует {@link java.util.Iterator}
  */
+@Component
 public class TicketsGenerator implements Iterator<MealTicket> {
     //todo реализовать генератор для билетов из 4-х цифр
     private long current = 0;

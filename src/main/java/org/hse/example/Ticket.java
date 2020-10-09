@@ -1,12 +1,17 @@
 package org.hse.example;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 
 /**
  * Класс для моделирования билета
  */
+@Component
+@Scope("prototype")
 public class Ticket implements MealTicket {
-    //todo реализовать класс для билета из 4-х цифр. Лучше интерфейс
+    //todo сделать из класса бин со скоупом prototype
     private int[] ticket;
 
     /**

@@ -1,5 +1,7 @@
 package org.hse.example;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.util.Iterator;
 
 /**
@@ -18,9 +20,9 @@ public class App {
      */
     public static void main(String... args) {
         //Реализуем служеюный Iterable
-        //todo подменить генератор на тот, что для билетов из 4-х цифр
-        //todo универсальный генератор + фабрика билетов (с Function)
-        Iterator<MealTicket> generator = new SmallTicketGenerator();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("org.hse.example");
+        Iterator<MealTicket> generator = context.getBean(Iterator.class);
+        //todo вынести в отдельный класс все действия с билетами
         generator.forEachRemaining(
                 ticket -> {
                     if (!ticket.isMealTicket()) {

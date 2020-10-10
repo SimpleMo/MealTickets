@@ -1,10 +1,16 @@
 package org.hse.example;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import java.util.Iterator;
 
 /**
  * Генерирует все возможные билеты, реализует {@link java.util.Iterator}
  */
+@Service("ticketsGenerator")
+@Primary
 public class TicketsGenerator implements Iterator<MealTicket> {
     //todo реализовать генератор для билетов из 4-х цифр
     private long current = 0;

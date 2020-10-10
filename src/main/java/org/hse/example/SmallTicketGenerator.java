@@ -1,10 +1,15 @@
 package org.hse.example;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.Iterator;
 
 /**
  * Генератор билетов из 4-х цифр. Реализует {@link java.util.Iterator}
  */
+@Service("smallTicketGenerator")
 public class SmallTicketGenerator implements Iterator<MealTicket> {
     private long current = 0;
 

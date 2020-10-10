@@ -16,9 +16,7 @@ import java.util.stream.StreamSupport;
 public class MealTicketCounter implements Supplier<Long> {
     private final Iterator<MealTicket> ticketIterator;
 
-    @Autowired
-    public MealTicketCounter(
-            @Qualifier("smallTicketGenerator") final Iterator<MealTicket> ticketIterator) {
+    public MealTicketCounter(final Iterator<MealTicket> ticketIterator) {
         this.ticketIterator = ticketIterator;
     }
 

@@ -26,7 +26,7 @@ public class AppConfig {
     @Bean("mealTicketCounter")
     @Primary
     @Autowired
-    public Supplier<Long> getTicketCounter(@Qualifier("smallTicketGenerator")
+    public Supplier<Long> getTicketCounter(@Qualifier("ticketsGenerator")
                                            final Iterator<MealTicket> ticketIterator){
         return new MealTicketCounter(ticketIterator);
     }

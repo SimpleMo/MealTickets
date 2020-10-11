@@ -16,12 +16,13 @@ public class App {
      * @param args аргументы
      */
     public static void main(String... args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext("org.hse.example");
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        @SuppressWarnings("unchecked")
         Supplier<Long> mealTicketCounter = context.getBean("mealTicketCounter", Supplier.class);
         Integer ticketLength = context.getBean("ticketLength", Integer.class);
 
-        System.out.println("Длина билета " + ticketLength);
         System.out.println("Счастливых билетов " + mealTicketCounter.get());
+        System.out.println("Длина билета " + ticketLength);
     }
 
 }

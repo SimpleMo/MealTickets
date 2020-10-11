@@ -1,23 +1,17 @@
 package org.hse.example;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 
 /**
  * Класс для моделирования билета
  */
-@Component
-@Scope("prototype")
 public class Ticket implements MealTicket {
-    //todo сделать из класса бин со скоупом prototype
     private int[] ticket;
 
     /**
      * @param ticket номер билета в виде целого числа
      */
-    public Ticket(long ticket) {
+    private Ticket(long ticket) {
         this.ticket = new int[]{0, 0, 0, 0, 0, 0};
         int j = 5;
         while (ticket > 0) {
@@ -25,6 +19,13 @@ public class Ticket implements MealTicket {
             ticket = ticket / 10;
             j--;
         }
+    }
+
+    /**
+     * @return возвращает построитель {@link MealTicket}
+     */
+    public static TicketBuilder builder() {
+        return new TicketBuilder();
     }
 
     /**
@@ -41,5 +42,34 @@ public class Ticket implements MealTicket {
     @Override
     public String toString() {
         return "Ticket{" + Arrays.toString(ticket) + "}";
+    }
+
+    /**
+     * Построитель билетов
+     */
+    public static class TicketBuilder {
+        private long ticket;
+        private boolean alreadyUsed = false;
+
+        private TicketBuilder() {
+        }
+
+        public TicketBuilder ticket(long ticket) {
+            this.ticket = ticket;
+            return this;
+        }
+
+        /**
+         * Возвращает сформированный экземпляр {@link MealTicket}. Может использоваться только один раз!
+         *
+         * @return {@link Ticket}
+         */
+        public Ticket build() {
+            if (alreadyUsed) {
+                throw new IllegalStateException("This builder is already used!");
+            }
+            return new Ticket(ticket);
+        }
+
     }
 }

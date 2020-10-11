@@ -10,7 +10,7 @@ public class SmallTicket implements MealTicket {
     /**
      * @param ticket номер билета в виде целого числа
      */
-    public SmallTicket(long ticket) {
+    private SmallTicket(long ticket) {
         this.ticket = new int[]{0, 0, 0, 0};
         int j = 3;
         while (ticket > 0) {
@@ -18,6 +18,13 @@ public class SmallTicket implements MealTicket {
             ticket = ticket / 10;
             j--;
         }
+    }
+
+    /**
+     * @return возвращает построитель {@link MealTicket}
+     */
+    public static SmallTicketBuilder builder() {
+        return new SmallTicketBuilder();
     }
 
     @Override
@@ -30,5 +37,33 @@ public class SmallTicket implements MealTicket {
     @Override
     public String toString() {
         return "SmallTicket{" + Arrays.toString(ticket) + "}";
+    }
+
+    /**
+     * Построитель билетов
+     */
+    public static class SmallTicketBuilder {
+        private long ticket;
+        private boolean alreadyUsed = false;
+
+        private SmallTicketBuilder() {
+        }
+
+        public SmallTicketBuilder ticket(long ticket) {
+            this.ticket = ticket;
+            return this;
+        }
+
+        /**
+         * Возвращает сформированный экземпляр {@link MealTicket}. Может использоваться только один раз!
+         *
+         * @return {@link SmallTicket}
+         */
+        public SmallTicket build() {
+            if (alreadyUsed) {
+                throw new IllegalStateException("This builder is already used!");
+            }
+            return new SmallTicket(ticket);
+        }
     }
 }

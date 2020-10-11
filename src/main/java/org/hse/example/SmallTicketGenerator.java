@@ -1,5 +1,8 @@
 package org.hse.example;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -8,7 +11,10 @@ import java.util.Iterator;
  * Генератор билетов из 4-х цифр. Реализует {@link java.util.Iterator}
  */
 @Service("smallTicketGenerator")
-public class SmallTicketGenerator implements Iterator<MealTicket> {
+public class SmallTicketGenerator implements Iterator<MealTicket>, ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
     private long current = 0;
 
     /**
@@ -24,8 +30,14 @@ public class SmallTicketGenerator implements Iterator<MealTicket> {
      */
     @Override
     public MealTicket next() {
-        MealTicket ticket = new SmallTicket(current);
+        SmallTicket.SmallTicketBuilder builder = applicationContext.getBean(SmallTicket.SmallTicketBuilder.class);
+        SmallTicket.SmallTicketBuilder ticketBuilder = builder.ticket(current);
         current++;
-        return ticket;
+        return ticketBuilder.build();
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

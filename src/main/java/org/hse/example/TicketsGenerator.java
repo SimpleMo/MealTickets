@@ -1,6 +1,10 @@
 package org.hse.example;
 
+import org.hse.example.builders.MealTicketBuilder;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +15,9 @@ import java.util.Iterator;
  */
 @Service("ticketsGenerator")
 @Primary
-public class TicketsGenerator implements Iterator<MealTicket> {
-    //todo реализовать генератор для билетов из 4-х цифр
+public class TicketsGenerator implements Iterator<MealTicket>, ApplicationContextAware {
     private long current = 0;
+    private ApplicationContext applicationContext;
 
     /**
      * @return true, если остались билеты в текущей последовательности
@@ -28,8 +32,14 @@ public class TicketsGenerator implements Iterator<MealTicket> {
      */
     @Override
     public MealTicket next() {
-        MealTicket nextTicket = new Ticket(current);
+        MealTicketBuilder ticketBuilder = applicationContext.getBean("ticketBuilder", MealTicketBuilder.class);
+        MealTicket nextTicket = ticketBuilder.ticket(current).build();
         current++;
         return nextTicket;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

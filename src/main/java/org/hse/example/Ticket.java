@@ -18,6 +18,13 @@ public class Ticket implements MealTicket {
      * @param ticket номер билета в виде целого числа
      */
     public Ticket(long ticket) {
+        if (ticket < 0) {
+            throw new IllegalArgumentException("Попытка создать билет с отрицательным номером!");
+        }
+        if (ticket >= 1000000) {
+            throw new IllegalArgumentException("Номер билета состоит более, чем из 6-ти цифр!");
+        }
+
         this.ticket = new int[]{0, 0, 0, 0, 0, 0};
         int j = 5;
         while (ticket > 0) {
@@ -41,5 +48,22 @@ public class Ticket implements MealTicket {
     @Override
     public String toString() {
         return "Ticket{" + Arrays.toString(ticket) + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Ticket thatTicket = (Ticket) o;
+        return Arrays.equals(ticket, thatTicket.ticket);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(ticket);
     }
 }

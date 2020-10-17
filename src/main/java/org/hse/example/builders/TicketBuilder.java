@@ -19,7 +19,7 @@ public class TicketBuilder implements MealTicketBuilder {
     /**
      * Признак использования данного экземпляра Строителя
      */
-    private Boolean used;
+    private boolean used = false;
 
     @PostConstruct
     public void init() {

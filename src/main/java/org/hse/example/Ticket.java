@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 /**
  * Класс для моделирования билета
@@ -43,6 +44,22 @@ public class Ticket implements MealTicket {
         int lastSum = ticket[3] + ticket[4] + ticket[5];
 
         return firstSum == lastSum;
+    }
+
+    @Override
+    public Long getOrdinal() {
+        long multiplicator = 1L;
+        long ordinal = 0L;
+        for(int j = ticket.length - 1; j >= 0; j--){
+            ordinal += ticket[j] * multiplicator;
+            multiplicator *= 10;
+        }
+        return ordinal;
+    }
+
+    @Override
+    public boolean accept(Predicate<HasOrdinal> visitor) {
+        return visitor.test(this);
     }
 
     @Override

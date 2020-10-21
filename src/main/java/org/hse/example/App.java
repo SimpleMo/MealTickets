@@ -18,7 +18,7 @@ public class App {
     public static void main(String... args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         @SuppressWarnings("unchecked")
-        Supplier<Long> mealTicketCounter = context.getBean("mealTicketCounter", Supplier.class);
+        Supplier<Long> mealTicketCounter = context.getBean("multipleOfFiveMealTicketCounter", Supplier.class);
         Integer ticketLength = context.getBean("ticketLength", Integer.class);
 
         System.out.println("Счастливых билетов " + mealTicketCounter.get());

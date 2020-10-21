@@ -32,4 +32,20 @@ public class AppConfig {
                                            final Iterator<MealTicket> ticketIterator){
         return new MealTicketCounter(ticketIterator);
     }
+
+    @Bean("evenMealTicketCounter")
+    @Primary
+    @Autowired
+    public Supplier<Long> getEvenTicketCounter(@Qualifier("ticketsGenerator")
+                                           final Iterator<MealTicket> ticketIterator){
+        return new EvenMealTicketCounter(ticketIterator);
+    }
+
+    @Bean("multipleOfFiveMealTicketCounter")
+    @Primary
+    @Autowired
+    public Supplier<Long> getMultipleOfFiveTicketCounter(@Qualifier("ticketsGenerator")
+                                           final Iterator<MealTicket> ticketIterator){
+        return new MultipleOfFiveMealTicketCounter(ticketIterator);
+    }
 }

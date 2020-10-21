@@ -1,13 +1,7 @@
 package org.hse.example;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
 import java.util.Iterator;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
@@ -21,6 +15,16 @@ public class MealTicketCounter implements Supplier<Long> {
     }
 
     /**
+     * Дополнительный фильтр для Шаблонного метода
+     *
+     * @param ticket обрабатываемый билет
+     * @return результат работы фильтра
+     */
+    protected boolean additionalFilter(MealTicket ticket) {
+        return true;
+    }
+
+    /**
      * Выводит счастливые билеты в консоль и возвращает их количество
      *
      * @return количество счастливых билетов
@@ -31,6 +35,7 @@ public class MealTicketCounter implements Supplier<Long> {
         return StreamSupport
                     .stream(tickets.spliterator(), false)
                     .filter(MealTicket::isMealTicket)
+                    .filter(this::additionalFilter)
                     .peek(System.out::println)
                     .count();
     }
